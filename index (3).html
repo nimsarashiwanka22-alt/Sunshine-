@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff8fbd">
+<title>Bimmala's Little Magical World 🍄💗</title>
+<style>
+:root{
+  --pink:#ff72aa;--hot:#ff3f83;--lav:#a78bfa;--purple:#7654d9;--mint:#7ee8c7;
+  --blue:#8bd7ff;--peach:#ffc59e;--cream:#fff8ef;--red:#ff527c;--gold:#ffd65a;
+  --ink:#4b365b;--glass:rgba(255,255,255,.64);--shadow:0 18px 55px rgba(100,53,110,.18);
+}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;color:var(--ink)}
+body{overflow-x:hidden;background:linear-gradient(145deg,#ffe8f3,#eee5ff 48%,#dcfff4);transition:background .8s ease}
+body.night{background:linear-gradient(145deg,#171332,#30205e 52%,#142b46);color:#fff}
+button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hidden{display:none!important}.screen{min-height:100dvh;position:relative}
+.glass{background:var(--glass);border:1px solid rgba(255,255,255,.7);box-shadow:var(--shadow);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:28px}
+.night .glass{background:rgba(39,30,75,.58);border-color:rgba(255,255,255,.15)}
+h1,h2,h3,p{margin:.4em 0}.center{text-align:center}
+#intro{display:grid;place-items:center;padding:24px;overflow:hidden;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.45),transparent 42%)}
+.intro-inner{width:min(620px,100%);text-align:center;z-index:3}
+.intro-mush{font-size:clamp(6rem,25vw,10rem);filter:drop-shadow(0 15px 25px rgba(255,91,151,.3));animation:float 3s ease-in-out infinite,glow 2s ease-in-out infinite alternate}
+.intro-line{font-size:clamp(1.05rem,4vw,1.45rem);font-weight:700;min-height:2.3em;opacity:0;animation:fadeIn 1s .7s forwards}
+.reveal{font-size:clamp(2.5rem,12vw,5.5rem);line-height:1;font-weight:1000;background:linear-gradient(90deg,var(--hot),var(--purple),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 8px 35px rgba(255,82,150,.18);opacity:0;transform:scale(.65);animation:reveal 1.1s 2.1s forwards}
+.intro-sub{opacity:0;animation:fadeIn 1s 3.1s forwards;font-size:1.1rem}
+.cta{margin-top:22px;padding:15px 25px;border-radius:999px;color:#fff;font-weight:900;background:linear-gradient(135deg,var(--hot),var(--purple));box-shadow:0 12px 28px rgba(255,63,131,.28);position:relative;overflow:hidden}
+.cta:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.5),transparent);transform:translateX(-120%);animation:shine 2.7s infinite}
+#intro .cta{opacity:0;animation:fadeIn 1s 3.7s forwards}
+.magic{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+.particle{position:absolute;animation:rise linear forwards;opacity:.8}
+@keyframes float{50%{transform:translateY(-12px) rotate(2deg)}}@keyframes glow{to{filter:drop-shadow(0 0 35px rgba(255,112,174,.85))}}
+@keyframes fadeIn{to{opacity:1}}@keyframes reveal{to{opacity:1;transform:scale(1)}}@keyframes shine{50%{transform:translateX(120%)}}@keyframes rise{from{transform:translateY(110vh) rotate(0);opacity:0}15%{opacity:.9}to{transform:translateY(-15vh) rotate(360deg);opacity:0}}
+@keyframes pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+@keyframes blink{0%,45%,50%,100%{transform:scaleY(1)}47%{transform:scaleY(.12)}}
+@keyframes bounce{50%{transform:translateY(-9px)}}
+#app{padding:14px 14px 40px;max-width:900px;margin:auto}
+.topbar{position:sticky;top:10px;z-index:20;display:flex;gap:8px;justify-content:space-between;align-items:center;padding:10px 12px;margin-bottom:14px}
+.iconbtn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.72);box-shadow:0 8px 20px rgba(80,50,100,.1)}
+.night .iconbtn{background:rgba(255,255,255,.12);color:#fff}
+.brand{font-weight:1000}.brand small{display:block;font-size:.7rem;opacity:.65}
+.hero{padding:22px;text-align:center;overflow:hidden;position:relative}
+.hero h1{font-size:clamp(1.7rem,7vw,3rem)}.hero p{opacity:.75}
+.bimmala{font-size:5rem;display:inline-block;animation:bounce 2.3s ease-in-out infinite}
+.character-wrap{position:relative;display:inline-block}.face{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-size:1.1rem;white-space:nowrap;pointer-events:none}
+.eye{display:inline-block;animation:blink 5s infinite}
+.map{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+.level{padding:18px 12px;min-height:135px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;text-align:center;transition:.25s;position:relative;overflow:hidden}
+.level:active{transform:scale(.97)}.level.locked{filter:saturate(.45);opacity:.7}.level.done{outline:3px solid rgba(126,232,199,.65)}
+.level .emoji{font-size:2.8rem}.level b{font-size:1.05rem}.status{font-size:.75rem;opacity:.7}
+.progressbox{margin-top:14px;padding:15px}.progress{height:14px;border-radius:99px;background:rgba(255,255,255,.5);overflow:hidden}.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--hot),var(--purple),var(--mint));border-radius:inherit;transition:width .6s}
+.panel{margin-top:14px;padding:18px}.panel h2{text-align:center}.game{min-height:390px;position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.42),rgba(255,255,255,.18))}
+.game-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-weight:900}.pill{padding:8px 12px;border-radius:99px;background:rgba(255,255,255,.58)}
+.game-area{height:320px;position:relative;border-radius:22px;margin-top:12px;overflow:hidden;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.6),transparent 50%),linear-gradient(180deg,rgba(180,224,255,.45),rgba(255,220,240,.38))}
+.night .game-area{background:radial-gradient(circle at 50% 0%,rgba(141,121,255,.32),transparent 55%),linear-gradient(180deg,rgba(33,28,78,.6),rgba(49,20,72,.6))}
+.fall{position:absolute;font-size:2rem;user-select:none;touch-action:manipulation;animation:fall linear forwards}
+@keyframes fall{from{transform:translateY(-70px) rotate(-15deg)}to{transform:translateY(390px) rotate(25deg)}}
+.choice-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;height:100%}.choice{font-size:1.7rem;border-radius:16px;background:rgba(255,255,255,.25);transition:.2s}.choice:active{transform:scale(.85)}
+.hud{text-align:center;padding:12px}.bigmsg{font-size:1.15rem;font-weight:900;min-height:2.8em}.garden{height:320px;position:relative;border-radius:22px;overflow:hidden;background:linear-gradient(#aee7ff 0 50%,#9be1a0 50%)}.garden:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-15%;height:55%;background:#76c47f;border-radius:50% 50% 0 0}.placed{position:absolute;z-index:2;font-size:2.1rem;animation:pop .35s both}
+.tools{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:10px}.tool{padding:11px 13px;border-radius:15px;background:rgba(255,255,255,.72);box-shadow:0 7px 15px rgba(70,50,100,.08)}
+.night .tool{background:rgba(255,255,255,.12);color:#fff}.collection{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px}.butter{font-size:2rem;animation:float 2s ease-in-out infinite;cursor:pointer}.rare{filter:drop-shadow(0 0 12px #ffe15b)}
+.scene{min-height:300px;border-radius:24px;padding:18px;text-align:center;display:grid;place-items:center;background:linear-gradient(160deg,rgba(255,255,255,.45),rgba(255,200,230,.3))}
+.letter{padding:24px;line-height:1.7;text-align:left;background:rgba(255,250,244,.9);border-radius:22px;box-shadow:var(--shadow)}.night .letter{color:#4b365b}
+.meter{height:30px;background:rgba(255,255,255,.45);border-radius:99px;padding:4px;margin:14px 0}.meter i{height:100%;width:0;display:block;border-radius:inherit;background:linear-gradient(90deg,var(--pink),var(--hot),var(--gold));transition:width .5s}
+#toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);z-index:100;padding:13px 18px;border-radius:999px;background:rgba(45,30,55,.88);color:#fff;opacity:0;pointer-events:none;transition:.3s;max-width:90%;text-align:center;font-weight:800}
+#toast.show{opacity:1;transform:translate(-50%,0)}#confetti{position:fixed;inset:0;pointer-events:none;z-index:90;overflow:hidden}
+.conf{position:absolute;animation:conf 1.7s ease-out forwards;font-size:1.5rem}@keyframes conf{from{transform:translate(0,0) rotate(0);opacity:1}to{transform:translate(var(--x),var(--y)) rotate(720deg);opacity:0}}
+.final{position:fixed;inset:0;z-index:80;background:radial-gradient(circle,#5e4ab0,#201435 65%);color:#fff;display:grid;place-items:center;padding:24px;text-align:center;overflow:hidden}.final h1{font-size:clamp(2.4rem,11vw,5.5rem);line-height:1.05}.final .heart{font-size:6rem;animation:glow 1.3s infinite alternate}.final-content{max-width:700px;z-index:2}
+@media(min-width:650px){.map{grid-template-columns:repeat(3,1fr)}#app{padding-top:18px}.game-area,.garden{height:380px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="intro" class="screen">
+  <div class="magic" id="introMagic"></div>
+  <div class="intro-inner">
+    <div class="intro-mush">🍄</div>
+    <div class="intro-line">Once upon a little world…</div>
+    <div class="intro-line">There was a very special girl named Amaya…</div>
+    <div class="intro-line">But someone had a special name for her…</div>
+    <div class="reveal">BIMMALA 🍄</div>
+    <p class="intro-sub">So I made a tiny world… just for you.<br><b>Welcome to Bimmala’s Little Magical World 💗</b></p>
+    <button class="cta" id="enter">Enter My World ✨</button>
+  </div>
+</div>
+
+<main id="app" class="hidden">
+  <div class="magic" id="magic"></div>
+  <div class="topbar glass">
+    <div class="brand">🍄 Bimmala's World <small>made with love for Amaya</small></div>
+    <div>
+      <button class="iconbtn" id="modeBtn" aria-label="Toggle day night">☀️</button>
+      <button class="iconbtn" id="soundBtn" aria-label="Toggle sound">🔇</button>
+    </div>
+  </div>
+
+  <section class="hero glass">
+    <div class="character-wrap" id="mushroom">
+      <div class="bimmala">🍄</div><div class="face"><span class="eye">•</span>‿<span class="eye">•</span></div>
+    </div>
+    <h1>Bimmala’s Magical World 🍄💗</h1>
+    <p>Every little level is a tiny surprise made especially for you.</p>
+    <button class="cta" id="mushTalk">Talk to Bimmala 💬</button>
+  </section>
+
+  <section class="progressbox glass">
+    <b id="progressText">Bimmala’s Adventure: 0% Complete</b>
+    <div class="progress"><i id="progressBar"></i></div>
+  </section>
+
+  <section class="map" id="map">
+    <button class="level glass" data-game="heart"><span class="emoji">💗</span><b>Heart Forest</b><span class="status">Tap to play</span></button>
+    <button class="level glass" data-game="find"><span class="emoji">🍄</span><b>Mushroom Meadow</b><span class="status">Tap to play</span></button>
+    <button class="level glass" data-game="garden"><span class="emoji">🌸</span><b>Love Garden</b><span class="status">Tap to play</span></button>
+    <button class="level glass" data-game="butter"><span class="emoji">🌙</span><b>Moonlight Dream</b><span class="status">Tap to play</span></button>
+    <button class="level glass" data-game="love"><span class="emoji">🔐</span><b>Secret Level</b><span class="status">Locked</span></button>
+    <button class="level glass" data-game="letter"><span class="emoji">💌</span><b>Secret Love Letter</b><span class="status">Locked</span></button>
+  </section>
+
+  <section class="panel glass" id="playPanel">
+    <h2>Choose a magical level above ✨</h2>
+    <p class="center">Explore, play, discover hidden secrets, and build Bimmala’s little world.</p>
+  </section>
+</main>
+
+<div id="toast"></div><div id="confetti"></div>
+
+<div id="final" class="final hidden">
+  <div class="magic" id="finalMagic"></div>
+  <div class="final-content">
+    <div class="heart">🍄</div>
+    <h1>You completed Bimmala’s Little World 🍄❤️</h1>
+    <p id="finalText">But there was one thing I couldn't put inside this game…</p>
+    <button class="cta" id="surprise">One Last Surprise 💌</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const KEY="bimmalaWorld_v1";
+const defaultState={games:{heart:false,find:false,garden:false,butter:false,love:false},score:0,garden:[],butterflies:[],eggs:[],love:0,night:false,sound:false,final:false};
+let state=Object.assign({},defaultState,JSON.parse(localStorage.getItem(KEY)||"{}"));
+state.games=Object.assign({},defaultState.games,state.games);
+state.eggs=state.eggs||[]; state.garden=state.garden||[]; state.butterflies=state.butterflies||[];
+let audioCtx=null, timer=null;
+
+function save(){localStorage.setItem(KEY,JSON.stringify(state)); updateUI()}
+function beep(freq=500,dur=.08,type="sine"){
+  if(!state.sound)return;
+  try{
+    audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+    const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+    o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(.0001,audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.08,audioCtx.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);
+    o.connect(g).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+dur);
+  }catch(e){}
+}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),2300)}
+function particles(root,count=30,items=["✨","💗","⭐","🌸","🦋"]){
+  for(let i=0;i<count;i++){const p=document.createElement("span");p.className="particle";p.textContent=items[Math.floor(Math.random()*items.length)];
+    p.style.left=Math.random()*100+"%";p.style.animationDuration=(5+Math.random()*8)+"s";p.style.animationDelay=(Math.random()*4)+"s";p.style.fontSize=(10+Math.random()*16)+"px";root.appendChild(p)}
+}
+particles($("#introMagic"),25); particles($("#magic"),24);
+function confetti(n=55){
+  const root=$("#confetti");root.innerHTML="";
+  for(let i=0;i<n;i++){let c=document.createElement("span");c.className="conf";c.textContent=["💗","✨","🌸","🍄","🦋","⭐","🌈"][Math.floor(Math.random()*7)];
+    c.style.left="50%";c.style.top="50%";c.style.setProperty("--x",(Math.random()*1100-550)+"px");c.style.setProperty("--y",(Math.random()*800-450)+"px");c.style.animationDelay=Math.random()*.3+"s";root.appendChild(c)}
+  setTimeout(()=>root.innerHTML="",2200);
+}
+function updateUI(){
+  const done=Object.values(state.games).filter(Boolean).length;
+  const pct=Math.round(done/4*100);
+  $("#progressText").textContent=`Bimmala’s Adventure: ${pct}% Complete`;
+  $("#progressBar").style.width=pct+"%";
+  $$(".level").forEach(b=>{
+    const g=b.dataset.game, locked=(g==="love"&&!Object.values(state.games).slice(0,4).every(Boolean))||(g==="letter"&&done<3);
+    b.classList.toggle("locked",locked);
+    if(state.games[g]){b.classList.add("done");b.querySelector(".status").textContent="✅ Completed"}
+    else if(locked)b.querySelector(".status").textContent="🔐 Locked";
+    else b.querySelector(".status").textContent="Tap to play";
+  });
+  document.body.classList.toggle("night",state.night); $("#modeBtn").textContent=state.night?"🌙":"☀️"; $("#soundBtn").textContent=state.sound?"🎵":"🔇";
+}
+function unlockCheck(){
+  const all=Object.values(state.games).slice(0,4).every(Boolean);
+  if(all&&!state.final){state.final=true;save();setTimeout(()=>openFinal(),700)}
+}
+function openFinal(){
+  $("#final").classList.remove("hidden");$("#finalText").textContent="But there was one thing I couldn't put inside this game…";
+  confetti(90);beep(660,.2,"triangle");setTimeout(()=>beep(880,.3,"sine"),180);particles($("#finalMagic"),45,["💗","✨","🦋","🌸","⭐"]);
+}
+function talk(){
+  const msgs=["Hi… I'm Bimmala 🍄","Did you come here just for me? 🥺","Don't forget to smile, Amaya 💗","I think someone loves you very much… 👀❤️","You found me again! 😝🍄"];
+  toast(msgs[Math.floor(Math.random()*msgs.length)]);beep(520,.1); state.eggs.includes("mush7")||null;
+}
+$("#enter").onclick=()=>{beep(600,.15);$("#intro").classList.add("hidden");$("#app").classList.remove("hidden");if(state.sound) beep(740,.12);updateUI();};
+$("#modeBtn").onclick=()=>{state.night=!state.night;save();beep(state.night?300:650,.1);};
+$("#soundBtn").onclick=()=>{state.sound=!state.sound;save();beep(650,.1);if(state.sound)toast("Dreamy sounds are on 🎵")};
+$("#mushTalk").onclick=talk;
+let mushTaps=0;
+$("#mushroom").onclick=()=>{mushTaps++;talk();if(mushTaps>=7&&!state.eggs.includes("mush7")){state.eggs.push("mush7");save();confetti(35);toast("Okay okay… you found my secret. 😭🍄")}};
+
+$$(".level").forEach(b=>b.onclick=()=>{
+  const g=b.dataset.game;
+  const done=Object.values(state.games).slice(0,4).every(Boolean);
+  if(g==="love"&&!done){toast("Complete the four main levels first 🔐");return}
+  if(g==="letter"&&Object.values(state.games).filter(Boolean).length<3){toast("Unlock 3 levels first 💌");return}
+  openGame(g);
+});
+
+function openGame(g){
+  const p=$("#playPanel");
+  if(g==="heart")heartGame(p);
+  if(g==="find")findGame(p);
+  if(g==="garden")gardenGame(p);
+  if(g==="butter")butterGame(p);
+  if(g==="love")loveGame(p);
+  if(g==="letter")letterGame(p);
+  p.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function finish(g,msg){
+  if(!state.games[g]){state.games[g]=true;save();toast(msg||"Level complete! ✨");confetti(45);beep(880,.18,"triangle");unlockCheck()}
+  else updateUI();
+}
+function heartGame(p){
+  clearInterval(timer);
+  p.innerHTML=`<h2>💗 Catch My Hearts</h2><div class="hud"><span class="pill">Score: <b id="hs">0</b></span> <span class="pill">Time: <b id="ht">30</b></span> <span class="pill">Combo: <b id="hc">0</b></span></div><div class="game"><div class="game-area" id="heartArea"></div></div><p class="bigmsg center" id="hm">Catch them, Bimmala! 💕</p>`;
+  let score=0,combo=0,time=30,active=true;
+  const area=$("#heartArea");
+  const spawn=()=>{
+    if(!active)return;
+    const el=document.createElement("button");el.className="fall";let r=Math.random();
+    el.textContent=r<.08?"🌈💗":r<.2?"💛":"💗";let pts=r<.08?10:r<.2?5:1;
+    el.style.left=(Math.random()*86+3)+"%";el.style.animationDuration=(1.4+Math.random()*.9)+"s";
+    el.onclick=()=>{if(!active)return;score+=pts;combo++;$("#hs").textContent=score;$("#hc").textContent=combo;beep(500+pts*40,.05);el.remove();if(combo>=10)$("#hm").textContent="10 COMBO! YOU'RE TOO CUTE! 🍄";else if(combo>=5)$("#hm").textContent="5 COMBO! ✨";else if(combo>=3)$("#hm").textContent="3 COMBO! 💕";if(score>=25)$("#hm").textContent="Awww… Bimmala is catching my heart again. ❤️";};
+    area.appendChild(el);setTimeout(()=>el.remove(),2400);
+  };
+  const sp=setInterval(spawn,420);
+  timer=setInterval(()=>{time--;$("#ht").textContent=time;if(time<=0){clearInterval(timer);clearInterval(sp);active=false;area.innerHTML="";$("#hm").innerHTML=`You caught <b>${score}</b> hearts…<br><br>But you already caught mine a long time ago. 🥺❤️`;finish("heart")}},1000);
+}
+function findGame(p){
+  let round=1;
+  p.innerHTML=`<h2>🍄 Find Bimmala</h2><p class="center">Round <b id="fr">1</b>/5 — Find the glowing mushroom.</p><div class="game-area choice-grid" id="findArea"></div><p class="bigmsg center" id="fm">Where is she hiding? 👀</p>`;
+  const render=()=>{
+    const area=$("#findArea");area.innerHTML="";
+    let target=Math.floor(Math.random()*20);
+    for(let i=0;i<20;i++){let b=document.createElement("button");b.className="choice";b.textContent=["🌸","⭐","🦋","💗","🌿","🍄"][Math.floor(Math.random()*6)];
+      if(i===target)b.dataset.target="1";
+      b.onclick=()=>{if(b.dataset.target){beep(900,.12);if(round<5){toast("You found me! 🥺🍄");round++;$("#fr").textContent=round;render()}else{$("#fm").innerHTML="You found Bimmala every single time! ❤️<br><small>Maybe you really know me too well. 😝</small>";finish("find")}}else{beep(180,.06);toast("Not me! Keep looking 😝")}};
+      area.appendChild(b);
+    }
+  };render();
+}
+function gardenGame(p){
+  p.innerHTML=`<h2>🌸 Build Our Love Garden</h2><p class="center">Fill our tiny garden with beautiful things.</p><div class="garden" id="garden"></div><div class="tools">${[["🌸","Flower"],["🍄","Mushroom"],["💗","Heart"],["⭐","Star"],["🦋","Butterfly"],["🌈","Rainbow"],["☁️","Cloud"],["🌳","Tree"]].map(x=>`<button class="tool" data-g="${x[0]}">${x[0]} ${x[1]}</button>`).join("")}</div><p class="bigmsg center" id="gm">Objects: <b>${state.garden.length}</b>/12</p>`;
+  const area=$("#garden"); state.garden.slice(-40).forEach(x=>placeGarden(x,area,false));
+  $$(".tool").forEach(b=>b.onclick=()=>{state.garden.push(b.dataset.g);placeGarden(b.dataset.g,area,true);save();let n=state.garden.length;$("#gm").innerHTML=`Objects: <b>${n}</b>/12`;if(n>=12){$("#gm").innerHTML="Look at our little garden… 🌸🍄<br><br>It's beautiful.<br><br>But you're still the prettiest thing here, Amaya. ❤️";finish("garden")}});
+}
+function placeGarden(x,area,sound){let e=document.createElement("span");e.className="placed";e.textContent=x;e.style.left=(5+Math.random()*88)+"%";e.style.top=(5+Math.random()*78)+"%";area.appendChild(e);if(sound)beep(420+Math.random()*400,.06)}
+function butterGame(p){
+  p.innerHTML=`<h2>🦋 Moonlight Dream</h2><p class="center">Catch butterflies before they flutter away.</p><div class="collection" id="bc">${state.butterflies.map(x=>`<span>${x}</span>`).join("")}</div><div class="game-area" id="butterArea"></div><p class="bigmsg center" id="bm">Collection: ${state.butterflies.length}/5</p>`;
+  const area=$("#butterArea");let count=0;
+  const spawn=()=>{if(count++>15)return;let b=document.createElement("button");b.className="butter";let r=Math.random(),v=r<.035?"🌈🦋":r<.22?"🦋":"🦋";b.textContent=v;b.style.position="absolute";b.style.left=(Math.random()*85+4)+"%";b.style.top=(Math.random()*75+5)+"%";b.classList.toggle("rare",v.includes("🌈"));area.appendChild(b);
+    b.onclick=()=>{state.butterflies=[...new Set([...state.butterflies,v])];b.remove();save();beep(v.includes("🌈")?1000:650,.12);$("#bc").innerHTML=state.butterflies.map(x=>`<span>${x}</span>`).join("");$("#bm").textContent=v.includes("🌈")?"You found the rarest butterfly! 🌈🦋 Just like you… one of a kind. ❤️":`Beautiful! Collection: ${state.butterflies.length}/5`;if(v.includes("🌈")){state.eggs.push("rainbowButter");confetti(30)}if(state.butterflies.length>=5)finish("butter")};setTimeout(()=>b.remove(),3000)};
+  const sp=setInterval(spawn,900);setTimeout(()=>clearInterval(sp),15000);spawn();
+}
+function loveGame(p){
+  let n=state.love||0;
+  p.innerHTML=`<h2>❤️ How Much Does He Love Bimmala?</h2><p class="center">Measure My Love ❤️</p><div class="meter"><i id="lmeter"></i></div><h2 class="center" id="lp">${n}%</h2><div class="center"><button class="cta" id="loveBtn">Measure My Love ❤️</button></div><p class="bigmsg center" id="lt">Tap until the little website can't handle it.</p>`;
+  const update=()=>{$("#lmeter").style.width=n+"%";$("#lp").textContent=n+"%";if(n>=100){$("#lt").innerHTML="<b>ERROR ❤️</b><br>Love exceeded the maximum possible value.<br><br>Apparently, I love my Bimmala more than this website can calculate. 🍄❤️";finish("love")}};
+  $("#loveBtn").onclick=()=>{n=Math.min(100,n+10);state.love=n;save();beep(400+n*5,.05);if(n===25)$("#lt").textContent="That's only the beginning…";if(n===50)$("#lt").textContent="Still not enough.";if(n===75)$("#lt").textContent="My heart is getting full. 🥹";if(n===90)$("#lt").textContent="The website is struggling…";update()};update();
+}
+function letterGame(p){
+  p.innerHTML=`<h2>💌 A Letter From Someone Who Loves You</h2><div class="letter" id="letter"></div>`;
+  const text=`Dear Amaya,\n\nI don't know if a little website can explain everything I feel for you…\n\nbut I wanted to create a tiny world where every little thing reminds you how special you are to me.\n\nYou are my Bimmala 🍄, my favorite little person, my happiness, and one of the most precious parts of my life.\n\nNo matter how many flowers grow in this garden, no matter how many stars appear in this sky, and no matter how many hearts I catch…\n\nnone of them will ever be worth as much to me as you. ❤️\n\n— Someone who loves his Bimmala very much. 💗`;
+  const el=$("#letter");let i=0;const type=()=>{if(i<text.length){el.textContent+=text[i++];setTimeout(type,text[i-1]==="\n"?220:28)}};type();confetti(25);
+}
+let idleTimer;
+function resetIdle(){clearTimeout(idleTimer);idleTimer=setTimeout(()=>{toast("Amaya… are you still there? 🥺🍄");if(!state.eggs.includes("idle15")){state.eggs.push("idle15");save();}},15000)}
+["click","touchstart","pointermove"].forEach(e=>document.addEventListener(e,resetIdle,{passive:true}));resetIdle();
+
+let moonTaps=0;
+$("#modeBtn").addEventListener("click",()=>{if(state.night){moonTaps++;if(moonTaps>=3&&!state.eggs.includes("moon3")){state.eggs.push("moon3");save();confetti(20);toast("The moon knows how much I love you. 🌙❤️")}}});
+$("#surprise").onclick=()=>{
+  $("#finalText").innerHTML="<b>How much I love you.</b><br><br>Happy little moments are better when you're in them, Amaya.";
+  $("#surprise").textContent="I LOVE YOU, BIMMALA 🍄❤️";confetti(140);beep(520,.18);setTimeout(()=>beep(780,.25),170);setTimeout(()=>beep(1040,.35),380);
+  $("#surprise").onclick=()=>{confetti(180);$("#finalText").innerHTML="<b style='font-size:1.5rem'>I LOVE YOU, BIMMALA 🍄❤️</b><br><br>Always.";
+};
+};
+updateUI();
+</script>
+</body>
+</html>
